@@ -1,0 +1,8 @@
+.container-view {
+    flex-grow: 2;
+    padding: 20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+  

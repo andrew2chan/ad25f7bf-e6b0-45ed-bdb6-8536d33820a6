@@ -1,0 +1,6 @@
+#navbar {
+    min-height: 50px;
+    border: 2px solid #2AC420;
+    border-bottom: 0; /* reset the bottom to 0 so that we don't get an extra border line at the bottom */
+    border-radius: 15px 15px 0 0;
+}
