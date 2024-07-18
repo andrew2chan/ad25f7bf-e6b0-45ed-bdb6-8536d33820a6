@@ -30,5 +30,8 @@ module.exports = {
       template: "./public/index.html",
       filename: "./index.html"
     })
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true, // This line ensures all routes fall back to index.html
+  }
 };

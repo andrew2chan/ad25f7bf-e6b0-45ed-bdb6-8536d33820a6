@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Header from './Header.jsx';
-import Main from './components/Main.jsx';
+import RouterSetup from './components/Router.jsx';
+
 
 const App = () => {
   return (
     <div className='container'>
-      <Header/>
-      <Main />
+      <Header />
+      <main className="container-view">
+        <RouterSetup />
+      </main>
     </div>
   );
 };
