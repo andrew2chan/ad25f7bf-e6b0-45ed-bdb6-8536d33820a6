@@ -17,7 +17,7 @@
     list-style-type: none;
     border: 0;
     border-top-width: thin;
-    border-color: #2AC420;
+    border-color: var(--color-theme);
     border-style: solid;
     text-decoration: none;
     color: black;
@@ -42,5 +42,5 @@
 }
 
 #navbar ul a li svg:hover {
-    color: #2AC420;
+    color: var(--color-theme);
 }

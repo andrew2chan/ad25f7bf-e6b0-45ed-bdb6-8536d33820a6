@@ -1,3 +1,7 @@
+:root {
+  --color-theme: #2AC420;
+}
+
 #app {
   position: absolute;
   display: flex;
@@ -31,6 +35,7 @@
 .container-view {
   flex-grow: 2;
   padding: 20px 20px 0 20px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

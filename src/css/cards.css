@@ -1,13 +1,24 @@
-.card {
+.inner-card-container {
     display: flex;
-    border: 1px outset rgb(250,250,250);
+    flex-direction: column;
     padding: 5px;
     border-radius: 3px;
+    border: 1px outset rgb(250,250,250);
+}
+
+.card {
+    display: flex;
+    margin: 5px 0;
+}
+
+.card-status, .card-call-information, .card-icon {
+    display: flex;
 }
 
 .card-status, .card-call-information {
-    display: flex;
+    overflow: hidden;
     flex-direction: column;
+    justify-content: center;
 }
 
 .card-icon, .card-call-information {
@@ -16,4 +27,35 @@
 
 .card-status {
     flex: 2;
+}
+
+.card-icon {
+    justify-content: center;
+    align-items: center;
+}
+
+.card-to-person {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.card-call-date {
+    font-size: 1.1rem;
+}
+
+.card-call-duration {
+    font-size: 0.8rem;
+}
+
+.fontSizeL {
+    font-size: 1.25rem;
+}
+
+.line {
+    display: block;
+    width: 90%;
+    height: 2px;
+    background-color: rgb(200,200,200);
+    align-self: center;
 }

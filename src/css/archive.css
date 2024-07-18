@@ -1,0 +1,21 @@
+#archive-section {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 20px;
+    padding: 3px;
+    box-sizing: border-box;
+    max-height: 450px;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+#archive-section::-webkit-scrollbar-button {
+    display: none;
+}
+
+.card-container {
+    width: 100%;
+    height: 100%;
+}
