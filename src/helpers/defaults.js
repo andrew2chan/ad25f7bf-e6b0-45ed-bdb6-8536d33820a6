@@ -1,0 +1,1 @@
+export const baseURL = 'https://aircall-backend.onrender.com'; //base url for all api calls
