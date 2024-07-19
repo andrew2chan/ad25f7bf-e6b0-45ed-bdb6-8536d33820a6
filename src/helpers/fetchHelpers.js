@@ -13,7 +13,7 @@ const fetchGet = async (url, opt = {}) => {
 
         const json = await response.json();
 
-        //console.log(json);
+        console.log(json);
 
         return json;
     }

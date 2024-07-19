@@ -37,10 +37,17 @@
     bottom: 75px;
     right: 50px;
 
+    cursor: pointer;
     background-color: var(--color-theme);
     color: rgb(247, 247, 247);
 }
 
 .text-center {
     text-align: center;
+}
+
+.animate-to-remove {
+    height: 0;
+    padding: 0;
+    border: 0;
 }

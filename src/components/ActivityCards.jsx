@@ -40,10 +40,11 @@ const ActivityCards = (props) => {
     const createDateString = async () => {
         let d = new Date(createdAt);
 
-        let day = d.getDay();
+        let day = d.getDate();
+        let month = d.getMonth() + 1
         let lastTwoNumbersOfYear = d.getFullYear().toString().substring(2);
 
-        updateDateString(day + "/" + lastTwoNumbersOfYear);
+        updateDateString(day + "/" + month + "/" + lastTwoNumbersOfYear);
     }
 
     /**
@@ -64,6 +65,8 @@ const ActivityCards = (props) => {
 
     const handleArchiveClick = (e) => {
         const currentTargetId = e.currentTarget.id;
+
+        document.getElementById("inner-card-container-" + currentTargetId).classList.add("animate-to-remove");
         
         fetchPatch(baseURL + "/activities/" + currentTargetId, {
             "method": "PATCH",
@@ -73,7 +76,7 @@ const ActivityCards = (props) => {
     }
 
     return(
-        <section className="inner-card-container">
+        <section className="inner-card-container" id={`inner-card-container-${uniqueid}`}>
             <section className="card">
                 <section className="card-icon">
                     {cardIconToDisplay}

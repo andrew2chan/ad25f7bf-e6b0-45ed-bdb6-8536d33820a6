@@ -28,6 +28,8 @@ const Activity = () => {
         for(const activity of listOfAllActivities) {
             let activityId = activity.id;
 
+            document.getElementById("inner-card-container-" + activityId).classList.add("animate-to-remove");
+
             fetchPatch(baseURL + "/activities/" + activityId, {
                 "method": "PATCH",
                 "headers": { "Content-type": "application/json" },
