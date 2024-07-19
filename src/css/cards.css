@@ -64,3 +64,9 @@
     background-color: rgb(200,200,200);
     align-self: center;
 }
+
+.animate-to-remove-card {
+    height: 0;
+    padding: 0;
+    border: 0;
+}

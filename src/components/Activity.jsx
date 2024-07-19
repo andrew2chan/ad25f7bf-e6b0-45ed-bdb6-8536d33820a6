@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { baseURL } from '../helpers/defaults';
-import { fetchGet, fetchPatch } from '../helpers/fetchHelpers';
+import { fetchGet } from '../helpers/fetchHelpers';
+import { changeStatusOfArchiveWithTimeout } from '../helpers/cardHelpers.js';
 
 import ActivityCards from './ActivityCards.jsx';
 import { Archive } from '@material-ui/icons';
@@ -18,53 +19,60 @@ const Activity = () => {
         let promisedListOfReturnedActivities = fetchGet(allActivitiesURL, opts);
 
         promisedListOfReturnedActivities.then((listOfReturnedActivities) => { //once the promise is resolved then we set the local state to the returned activities
-            let filteredListOfReturnedActivities = listOfReturnedActivities.filter((val) => !val.is_archived);
-
-            updateListOfAllActivities([...listOfAllActivities, ...filteredListOfReturnedActivities]);
-        })
+            updateListOfAllActivities([...listOfAllActivities, ...listOfReturnedActivities]);
+        });
     }, []);
 
     const handleArchiveAll = () => {
         for(const activity of listOfAllActivities) {
             let activityId = activity.id;
 
-            document.getElementById("inner-card-container-" + activityId).classList.add("animate-to-remove");
-
-            fetchPatch(baseURL + "/activities/" + activityId, {
-                "method": "PATCH",
-                "headers": { "Content-type": "application/json" },
-                "body": JSON.stringify({ "is_archived": true })
-            })
+            changeStatusOfArchiveWithTimeout(updateListOfAllActivities, activityId, true, 0); //waits for a certain amount of time before setting the new variables to allow for the animation to play
         }
     }
 
     return(
         <>
-            <section id="activity-section">
-                {
-                    listOfAllActivities.map((item) => {
-                        const itemProps = {
-                            "callType": item.call_type,
-                            "direction": item.direction,
-                            "duration": item.duration,
-                            "from": item.from,
-                            "to": item.to,
-                            "createdAt": item.created_at,
-                            "uniqueid": item.id
-                        }
+            {
+                listOfAllActivities.filter((val) => !val.is_archived).length > 0 ? (
+                    <>
+                        <section id="activity-section">
+                            {
+                                listOfAllActivities.filter((val) => !val.is_archived).map((item) => {
+                                    const itemProps = {
+                                        "callType": item.call_type,
+                                        "direction": item.direction,
+                                        "duration": item.duration,
+                                        "from": item.from,
+                                        "to": item.to,
+                                        "createdAt": item.created_at,
+                                        "uniqueid": item.id,
+                                        updateListOfAllActivities
+                                    }
 
-                        return(
-                            <section className="card-container" key={item.id}>
-                                <ActivityCards {...itemProps} />
-                            </section>
-                        )
-                    })
-                }
-            </section>
-            <button className="archive-all-button" onClick={handleArchiveAll}>
-                <Archive />
-                <span className="text-center">Archive all</span>
-            </button>
+                                    return(
+                                        <section className="card-container" key={item.id}>
+                                            <ActivityCards {...itemProps} />
+                                        </section>
+                                    )
+                                })
+                            }
+                        </section>
+                        <button className="archive-all-button" onClick={handleArchiveAll}>
+                            <Archive />
+                            <span className="text-center">Archive all</span>
+                        </button>
+                    </>
+                ) :
+                (
+                    <>
+                        <section className="no-content">
+                            There is nothing here!
+                        </section>
+                    </>
+                )
+            }
+
         </>
     )
 }

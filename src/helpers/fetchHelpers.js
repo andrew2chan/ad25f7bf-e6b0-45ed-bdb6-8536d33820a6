@@ -13,7 +13,7 @@ const fetchGet = async (url, opt = {}) => {
 
         const json = await response.json();
 
-        console.log(json);
+        //console.log(json);
 
         return json;
     }
@@ -31,7 +31,7 @@ const fetchPatch = async(url, opt = {}) => {
 
         const text = await response.text();
 
-        console.log(text);
+        //console.log(text);
 
         return;
     }

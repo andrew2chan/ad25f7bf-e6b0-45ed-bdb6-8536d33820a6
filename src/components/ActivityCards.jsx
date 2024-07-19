@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 
-import '../css/cards.css';
-
 import { IconButton } from '@material-ui/core';
 import { PhoneMissed, PhoneCallback, PhoneForwarded, Archive } from '@material-ui/icons';
-import { fetchPatch } from '../helpers/fetchHelpers';
-import { baseURL } from '../helpers/defaults';
+import { changeStatusOfArchiveWithTimeout } from '../helpers/cardHelpers';
+
+import '../css/cards.css';
 
 const ActivityCards = (props) => {
-    const { callType, direction, duration, from, to, createdAt, uniqueid } = props;
+    const { callType, direction, duration, from, to, createdAt, uniqueid, updateListOfAllActivities } = props;
     const [cardIconToDisplay, updateCardIconToDisplay] = useState();
     const [dateString, updateDateString] = useState("");
     const [durationString, updateDurationString] = useState();
+    const [animateCardToRemove, updateAnimateCardToRemove] = useState(false);
 
     useEffect(() => {
         setIconComponent();
@@ -63,20 +63,14 @@ const ActivityCards = (props) => {
         }
     }
 
-    const handleArchiveClick = (e) => {
-        const currentTargetId = e.currentTarget.id;
+    const handleArchiveClick = () => {
+        updateAnimateCardToRemove(true);
 
-        document.getElementById("inner-card-container-" + currentTargetId).classList.add("animate-to-remove");
-        
-        fetchPatch(baseURL + "/activities/" + currentTargetId, {
-            "method": "PATCH",
-            "headers": { "Content-Type": "application/json" },
-            "body": JSON.stringify({ is_archived: true })
-        })
+        changeStatusOfArchiveWithTimeout(updateListOfAllActivities, uniqueid, true); //waits for a certain amount of time before setting the new variables to allow for the animation to play
     }
 
     return(
-        <section className="inner-card-container" id={`inner-card-container-${uniqueid}`}>
+        <section className={`inner-card-container ${animateCardToRemove ? "animate-to-remove-card" : "" }`} id={`inner-card-container-${uniqueid}`}>
             <section className="card">
                 <section className="card-icon">
                     {cardIconToDisplay}
